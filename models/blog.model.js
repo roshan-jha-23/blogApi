@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
+
+
 const blogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, unique: [true, "This title has been taken"] },
@@ -12,8 +14,8 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
 blogSchema.plugin(mongooseAggregatePaginate);
 
 const Blog = mongoose.model("Blog", blogSchema);
+
 export default Blog;

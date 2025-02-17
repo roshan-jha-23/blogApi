@@ -148,12 +148,26 @@ export const deleteABlog = async (req, res) => {
   }
 };
 
-export const countLikes=async(req,res)=>{
+export const countLikes = async (req, res) => {
   try {
-    
+    const blogId = req.params.id;
+    if (!blogId) {
+      return res.status(400).json({ message: "Blog id is required" });
+    }
+
+    const blog = await Blog.findById(blogId).select("likes");
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    const likesCount = Array.isArray(blog.likes) ? blog.likes.length : blog.likes;
+
+    return res.status(200).json({ likes: likesCount });
   } catch (error) {
-    
+    console.error("Error counting likes:", error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
-export default { createBlog ,allBlogs,userAllBlogs,deleteABlog};
+
+export default { createBlog ,allBlogs,userAllBlogs,deleteABlog,countLikes};
