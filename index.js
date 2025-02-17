@@ -4,6 +4,7 @@ import connect from "./utils/dataBase.config.js";
 import router from "./routes/user/user.route.js";
 import cookieParser from 'cookie-parser';
 import blogRouter from "./routes/blogs/blog.route.js"
+import likeRouter from "./routes/likes/like.router.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/user', router);
 app.use('/api/blog',blogRouter);
+app.use('/api/likes',likeRouter);
 connect();
 
 app.listen(process.env.PORT, () => {
